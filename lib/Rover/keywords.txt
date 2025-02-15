@@ -1,0 +1,20 @@
+#######################################
+# Classes, datatypes (KEYWORD1)
+#######################################
+
+Rover KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin KEYWORD2
+sleep KEYWORD2
+wakeup KEYWORD2
+steer KEYWORD2
+setMoveDirection KEYWORD2
+move KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
