@@ -3,13 +3,14 @@
 #######################################
 
 Pilot KEYWORD1
-
+PilotData KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
 begin KEYWORD2
-
+Read KEYWORD2
+data KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
