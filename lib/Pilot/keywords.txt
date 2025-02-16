@@ -14,3 +14,7 @@ data KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
+AXISMIN LITERAL1;
+AXISMAX LITERAL1;
+CH_TROTTLE LITERAL1;
+CH_ROLL LITERAL1;

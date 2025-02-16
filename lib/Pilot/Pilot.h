@@ -4,9 +4,15 @@
 #include <Arduino.h>
 #include <sbus.h>
 
+#define AXISMIN 172;
+#define AXISMAX 1811;
+
+#define CH_TROTTLE 0;
+#define CH_ROLL 1;
+
 struct PilotData
 {
-    int roll;
+    int16_t roll;
     int trottle;
 };
 
@@ -22,7 +28,14 @@ private:
     PilotData pilotData;
     bfs::SbusRx sbus_rx = bfs::SbusRx(&Serial, true);
     bfs::SbusData sBusData;
+
+    int minAxis=AXISMIN;
+    int maxAxis=AXISMAX;
+
+    int chTrottle = CH_TROTTLE;
+    int chRoll = CH_ROLL;
     void Convert();
+ 
 };
 
 #endif

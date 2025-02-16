@@ -7,12 +7,12 @@
 
 class RoverWell {
   public:
-    RoverWell(Adafruit_PWMServoDriver pwm, int pin1, int pin2);
+    RoverWell(Adafruit_PWMServoDriver *pwm, int pin1, int pin2);
     void rotate(int speed);
     void breake();
     void release();
   private:
-    Adafruit_PWMServoDriver _pwm;
+    Adafruit_PWMServoDriver* _pwm;
     int _pin1;
     int _pin2;
 }; 

@@ -10,13 +10,12 @@
 
 class RoverSteer {
   public:
-    RoverSteer();
     RoverSteer(Adafruit_PWMServoDriver* pwm, int pin);
     void begin();
     void steer(int angle);
   private:
-    Adafruit_PWMServoDriver* _pwm;
-    int _pin;
+    Adafruit_PWMServoDriver* pwm;
+    int pin;
     int angleToPulse(int ang);
 }; 
 

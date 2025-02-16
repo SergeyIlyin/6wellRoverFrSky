@@ -13,7 +13,6 @@ public:
   void sleep();
   void wakeup();
   void steer(int angle);
-  void setMoveDirection(int direction);
   void move(int speed);
 private:
   Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x40);

@@ -24,8 +24,6 @@ void Rover::steer(int angle) {
   steer_LF.steer(angle);
 }
 
-void Rover::setMoveDirection(int direction) {
-}
 
 void Rover::move(int speed) {
 }

@@ -20,16 +20,16 @@ bool Pilot::Read()
         sBusData = sbus_rx.data();
         Convert();
     }
-    else
-    {
-    }
-
     return readed;
 }
 
 void Pilot::Convert()
 {
     pilotData = PilotData();
-    pilotData.roll = 0;
-    pilotData.trottle = 0;
+    
+    // TROTTLE
+    pilotData.trottle = map(sBusData.ch[chTrottle], minAxis, maxAxis, 0, 100);
+
+    // ROLL
+    pilotData.roll = map(sBusData.ch[chRoll], minAxis, maxAxis, -90, 90);
 }
