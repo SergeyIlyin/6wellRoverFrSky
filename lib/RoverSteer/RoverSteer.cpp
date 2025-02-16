@@ -13,8 +13,7 @@ void RoverSteer::begin()
 void RoverSteer::steer(int angle)
 {
   int pulse = angleToPulse(angle);
-  pwm->setPWM(pin, 0, pulse);
-  
+  pwm->setPWM(pin, 0, pulse);  
 }
 
 int RoverSteer::angleToPulse(int ang)

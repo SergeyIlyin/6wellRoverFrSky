@@ -2,7 +2,7 @@
 #define RoverWell_h
 
 #include <Arduino.h>
-#include <Wire.h>
+//#include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
 #define DRIVEMIN 0
@@ -11,7 +11,7 @@
 
 class RoverWell {
   public:
-    RoverWell(Adafruit_PWMServoDriver *pwm, int pin1, int pin2);
+    RoverWell(Adafruit_PWMServoDriver* pwm, int pin1, int pin2);
     void begin();
     void rotate(int speed);
     void breake();

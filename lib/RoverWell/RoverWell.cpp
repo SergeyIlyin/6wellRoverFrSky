@@ -1,6 +1,6 @@
 #include "RoverWell.h"
 
-RoverWell::RoverWell(Adafruit_PWMServoDriver *pwm, int pin1, int pin2)
+RoverWell::RoverWell(Adafruit_PWMServoDriver* pwm, int pin1, int pin2)
 {
   this->pwm = pwm;
   this->pin1 = pin1;
@@ -9,7 +9,7 @@ RoverWell::RoverWell(Adafruit_PWMServoDriver *pwm, int pin1, int pin2)
 
 void RoverWell::rotate(int trottle)
 {
-  if (trottle = 0 || abs(trottle) < TROTTLEMIN)
+  if (trottle == 0 || abs(trottle) < TROTTLEMIN)
   {
     release();
   }

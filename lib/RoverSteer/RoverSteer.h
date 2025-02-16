@@ -2,7 +2,7 @@
 #define RoverSteer_h
 
 #include <Arduino.h>
-#include <Wire.h>
+//#include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
 #define SERVOMIN 125  // this is the 'minimum' pulse length count (out of 4096)
