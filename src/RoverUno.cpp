@@ -17,7 +17,7 @@ void setup()
 
 void loop()
 {
-  delay(500);
+  delay(10);
 
   if (pilot.Read())
   {
