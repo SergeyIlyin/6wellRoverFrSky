@@ -28,8 +28,8 @@ void Pilot::Convert()
     pilotData = PilotData();
     
     // TROTTLE
-    pilotData.trottle = map(sBusData.ch[chTrottle], minAxis, maxAxis, 0, 100);
+    pilotData.trottle = map(sBusData.ch[CH_TROTTLE], AXISMIN, AXISMAX, 0, 100);
 
     // ROLL
-    pilotData.roll = map(sBusData.ch[chRoll], minAxis, maxAxis, -90, 90);
+    pilotData.roll = map(sBusData.ch[CH_ROLL], AXISMIN, AXISMAX, -90, 90);
 }
