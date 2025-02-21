@@ -15,17 +15,18 @@ void setup()
 
 void loop()
 {
-  delay(1000);
+  //delay(100);
 
   if (pilot.Read())
-  {
+  {   
     PilotData data = pilot.data();
-    rover.wakeup();
+    Serial.print("Recived Roll=");Serial.print(data.roll);
     rover.steer(data.roll);
     rover.move(data.trottle);
+    Serial.println("");
   }
   else
   {
-    rover.sleep();
+    //rover.sleep();
   }
 }
