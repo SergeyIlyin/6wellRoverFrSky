@@ -31,5 +31,7 @@ void Pilot::Convert()
     pilotData.trottle = map(sBusData.ch[CH_TROTTLE], AXISMIN, AXISMAX, 0, 100);
 
     // ROLL
-    pilotData.roll = map(sBusData.ch[CH_ROLL], AXISMIN, AXISMAX, -90, 90);
+    pilotData.x = map(sBusData.ch[CH_X], AXISMIN, AXISMAX, -100, 100);
+
+    pilotData.y  = map(sBusData.ch[CH_Y], AXISMIN, AXISMAX, -100, 100);
 }

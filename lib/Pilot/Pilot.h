@@ -7,13 +7,15 @@
 #define AXISMIN 172
 #define AXISMAX 1811
 
-#define CH_TROTTLE 0
-#define CH_ROLL 1
+#define CH_TROTTLE 0x0
+#define CH_X 0x1
+#define CH_Y 0x2
 
 struct PilotData
 {
-    int16_t roll;
     int trottle;
+    int x;
+    int y;
 };
 
 class Pilot
