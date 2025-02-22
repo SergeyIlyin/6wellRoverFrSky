@@ -30,6 +30,8 @@ void Rover::wakeup() {
 }
 
 void Rover::steer(int angle) {
+  Serial.print("\t Rorate=");
+  Serial.print(angle);
   steer_LF.steer(angle);  
   steer_LM.steer(angle);
   steer_LR.steer(angle); 
@@ -40,5 +42,22 @@ void Rover::steer(int angle) {
 
 
 void Rover::move(int speed) {
+  Serial.print("\t LF");
+  well_LF.rotate(speed);
+  //delay(1000);
+  Serial.print("\t LM");
+  well_LM.rotate(speed);
+  //delay(1000);
+  Serial.print("\t LR");
+  well_LR.rotate(speed);
+  //delay(1000);
+  Serial.print("\t RF");
+  well_RF.rotate(speed);
+  //delay(1000);
+  Serial.print("\t RM");
+  well_RM.rotate(speed);
+  //delay(1000);
+  Serial.print("\t RR");
+  well_RR.rotate(speed);
 }
 
