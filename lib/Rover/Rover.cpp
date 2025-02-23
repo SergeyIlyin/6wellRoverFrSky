@@ -35,23 +35,9 @@ void Rover::wakeup()
 void Rover::steer(int x, int y)
 {
   WellPosition p = CalcWellPosion(x, y);
-  Serial.print("\tx/y=");
-  Serial.print(x);
-  Serial.print("/");
-  Serial.print("\t");
-  Serial.print(y);
-  Serial.print("\tW=");
-  Serial.print(p.LF);
-  Serial.print(" | ");
-  Serial.print(p.LM);
-  Serial.print(" | ");
-  Serial.print(p.LR);
-  Serial.print(" | ");
-  Serial.print(p.RF);
-  Serial.print(" | ");
-  Serial.print(p.RM);
-  Serial.print(" | ");
-  Serial.print(p.RR);
+  char strBuf[50];
+  sprintf(strBuf, "x/y=%d/%d W=%d | %d | %d | %d | %d | %d ", x, y, p.LF, p.LM, p.LR, p.RF, p.RM, p.RR);
+  Serial.print(strBuf);
 
   steer_LF.steer(p.LF);
   steer_LM.steer(p.LM);
@@ -63,46 +49,19 @@ void Rover::steer(int x, int y)
 
 void Rover::move(int speed)
 {
-  Serial.print("\t LF");
   well_LF.rotate(speed);
-  // delay(1000);
-  Serial.print("\t LM");
   well_LM.rotate(speed);
-  // delay(1000);
-  Serial.print("\t LR");
   well_LR.rotate(speed);
-  // delay(1000);
-  Serial.print("\t RF");
   well_RF.rotate(speed);
-  // delay(1000);
-  Serial.print("\t RM");
   well_RM.rotate(speed);
-  // delay(1000);
-  Serial.print("\t RR");
   well_RR.rotate(speed);
-}
-
-void printWellPosition(WellPosition p)
-{
-  Serial.print("\tW=");
-  Serial.print(p.LF);
-  Serial.print(" | ");
-  Serial.print(p.LM);
-  Serial.print(" | ");
-  Serial.print(p.LR);
-  Serial.print(" | ");
-  Serial.print(p.RF);
-  Serial.print(" | ");
-  Serial.print(p.RM);
-  Serial.print(" | ");
-  Serial.print(p.RR);
 }
 
 WellPosition CalcWellPosion(int _x, int _y)
 {
   WellPosition p = WellPosition();
   long x = 0;
-  
+
   if (_x > 0)
     x = map(_x, 0, 100, MAX_RADIUS, MIN_RADIUS);
 

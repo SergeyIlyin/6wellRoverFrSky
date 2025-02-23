@@ -19,7 +19,6 @@ struct WellPosition
   int RF;
   int RM;
   int RR;
-  /* data */
 };
 
 
