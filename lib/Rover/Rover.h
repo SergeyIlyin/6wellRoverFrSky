@@ -6,7 +6,7 @@
 #include <RoverSteer.h>
 #include <RoverWell.h>
 
-#define ROWER_WIDTH 300
+#define ROVER_WIDTH 300
 #define ROVER_LENGTH 300
 #define MAX_RADIUS 10000
 #define MIN_RADIUS 300
@@ -51,6 +51,8 @@ private:
   RoverWell well_RR = RoverWell(&pwmMotor, 0x10, 0x11);
 
   WellPosition CalcWellPosion(int _x, int _y);
+
+  
 };
 
 #endif

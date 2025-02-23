@@ -102,14 +102,30 @@ WellPosition CalcWellPosion(int _x, int _y)
 {
   WellPosition p = WellPosition();
   long x = 0;
+  
   if (_x > 0)
-  {
-    x = map(x, 0, 100, MAX_RADIUS, MIN_RADIUS);
-  }
+    x = map(_x, 0, 100, MAX_RADIUS, MIN_RADIUS);
+
   if (_x < 0)
-  {
-    x = map(x, 0, -100, -MAX_RADIUS, -MIN_RADIUS);
-  }
+    x = map(_x, 0, -100, -MAX_RADIUS, -MIN_RADIUS);
+
+  long y = map(_y, -100, 100, -MAX_RADIUS, MAX_RADIUS);
+
+  p.LF = wellAngle(-ROVER_WIDTH / 2, ROVER_LENGTH / 2, x, y);
+  p.LM = wellAngle(-ROVER_WIDTH / 2, 0, x, y);
+  p.LR = wellAngle(-ROVER_WIDTH / 2, -ROVER_LENGTH / 2, x, y);
+  p.RF = wellAngle(ROVER_WIDTH / 2, ROVER_LENGTH / 2, x, y);
+  p.RM = wellAngle(ROVER_WIDTH / 2, 0, x, y);
+  p.RR = wellAngle(ROVER_WIDTH / 2, -ROVER_LENGTH / 2, x, y);
 
   return p;
+}
+
+double wellAngle(double well_x, double well_y, double rotation_x, double rotation_y)
+{
+  double x = well_x + rotation_x;
+  double y = well_y + rotation_y;
+  double fl_r = sqrt(x * x + y * y);
+  double fl_cos = (x) / fl_r;
+  double fl_a = PI / 2 - acos(fl_cos);
 }
