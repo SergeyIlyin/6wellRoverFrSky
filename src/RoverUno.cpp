@@ -20,11 +20,11 @@ void setup()
 
 void loop()
 {
-  // PilotRol();
+  PilotRol();
   // TestServo();
-  TestMotor();
+  //TestMotor();
   Serial.println("");
-}
+  }
 
 void PilotRol()
 {

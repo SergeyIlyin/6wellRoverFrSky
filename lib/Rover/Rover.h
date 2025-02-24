@@ -6,8 +6,8 @@
 #include <RoverSteer.h>
 #include <RoverWell.h>
 
-#define ROVER_WIDTH 300
-#define ROVER_LENGTH 300
+#define ROVER_WIDTH 240
+#define ROVER_LENGTH 320
 #define MAX_RADIUS 10000
 #define MIN_RADIUS 300
 
