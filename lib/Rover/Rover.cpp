@@ -8,8 +8,8 @@ void Rover::begin()
 {
   pwmServo.begin();
   pwmMotor.begin();
-  pwmServo.setPWMFreq(60);
-  pwmMotor.setPWMFreq(60);
+  pwmServo.setPWMFreq(100);
+  pwmMotor.setPWMFreq(100);
   steer_LF.begin();
   steer_LM.begin();
   steer_LR.begin();
@@ -34,10 +34,13 @@ void Rover::wakeup()
 
 void Rover::steer(int x, int y)
 {
+  Serial.print("inX=");
+  Serial.print(x);
+
   WellPosition p = CalcWellPosion(x, y);
-  char strBuf[50];
-  sprintf(strBuf, "x/y=%d/%d W=%d | %d | %d | %d | %d | %d ", x, y, p.LF, p.LM, p.LR, p.RF, p.RM, p.RR);
-  Serial.print(strBuf);
+  // char strBuf[50];
+  // sprintf(strBuf, "x/y=%d/%d W=%d.%02d | %d.%02d  | %d.%02d  | %d.%02d  | %d.%02d | %d.%02d  ", x, y, p.LF, abs(p.LF * 100), p.LM, abs(p.LM * 100), p.LR, abs(p.LR * 100), p.RF, abs(p.RF * 100), p.RM, abs(p.RM * 100), p.RR, abs(p.RR * 100));
+  // Serial.print(strBuf);
 
   steer_LF.steer(p.LF);
   steer_LM.steer(p.LM);
@@ -56,35 +59,65 @@ void Rover::move(int speed)
   well_RM.rotate(speed);
   well_RR.rotate(speed);
 }
-
-WellPosition CalcWellPosion(int _x, int _y)
+WellPosition Rover::CalcWellPosion(int _x, int _y)
 {
   WellPosition p = WellPosition();
-  long x = 0;
 
+  // вычисляем угол поворота от процентов
+  double a_grad = 90;
   if (_x > 0)
-    x = map(_x, 0, 100, MAX_RADIUS, MIN_RADIUS);
-
+    a_grad = map(_x, 0, 100, 90, 0);
   if (_x < 0)
-    x = map(_x, 0, -100, -MAX_RADIUS, -MIN_RADIUS);
+    a_grad = map(_x, 0, -100, 90, 180);
+  Serial.print(" a=");
+  Serial.print(a_grad);
 
-  long y = map(_y, -100, 100, -MAX_RADIUS, MAX_RADIUS);
+  double a_rad = a_grad * PI / 180;
 
-  p.LF = wellAngle(-ROVER_WIDTH / 2, ROVER_LENGTH / 2, x, y);
-  p.LM = wellAngle(-ROVER_WIDTH / 2, 0, x, y);
-  p.LR = wellAngle(-ROVER_WIDTH / 2, -ROVER_LENGTH / 2, x, y);
-  p.RF = wellAngle(ROVER_WIDTH / 2, ROVER_LENGTH / 2, x, y);
-  p.RM = wellAngle(ROVER_WIDTH / 2, 0, x, y);
-  p.RR = wellAngle(ROVER_WIDTH / 2, -ROVER_LENGTH / 2, x, y);
+  // вычисляем радиус поворота
+  if (abs(a_grad - 90) > 1)
+  {
+    double tng = tan(a_rad);
+    double r = tng * ROVER_LENGTH;
+    Serial.print(" r=");
+    Serial.print(r);
 
-  return p;
+    double LF = wellAngle(-ROVER_WIDTH / 2, ROVER_LENGTH / 2, r, 0);
+    Serial.print(" LF=");
+    Serial.print(LF);
+  }
 }
 
-double wellAngle(double well_x, double well_y, double rotation_x, double rotation_y)
+// WellPosition Rover::CalcWellPosion(int _x, int _y)
+//{
+//   WellPosition p = WellPosition();
+//   double x = 0;
+//
+//   if (_x > 0)
+//     x = map(_x, 0, 100, MAX_RADIUS, MIN_RADIUS);
+//
+//   if (_x < 0)
+//     x = map(_x, 0, -100, -MAX_RADIUS, -MIN_RADIUS);
+//
+//   double y = map(_y, -100, 100, -MAX_RADIUS, MAX_RADIUS);
+//
+//   p.LF = wellAngle(-ROVER_WIDTH / 2, ROVER_LENGTH / 2, x, y);
+//   p.LM = wellAngle(-ROVER_WIDTH / 2, 0, x, y);
+//   p.LR = wellAngle(-ROVER_WIDTH / 2, -ROVER_LENGTH / 2, x, y);
+//   p.RF = wellAngle(ROVER_WIDTH / 2, ROVER_LENGTH / 2, x, y);
+//   p.RM = wellAngle(ROVER_WIDTH / 2, 0, x, y);
+//   p.RR = wellAngle(ROVER_WIDTH / 2, -ROVER_LENGTH / 2, x, y);
+//
+//   return p;
+// }
+
+double Rover::wellAngle(double well_x, double well_y, double r_x, double r_y)
 {
-  double x = well_x + rotation_x;
-  double y = well_y + rotation_y;
-  double fl_r = sqrt(x * x + y * y);
-  double fl_cos = (x) / fl_r;
-  double fl_a = PI / 2 - acos(fl_cos);
+
+  double d_x = well_x - r_x;
+  double d_y = well_y - r_y;
+  double w_tan = d_x / d_y;
+  double rad = atan(w_tan);
+  double gr = rad * 180 / PI;
+  return gr;
 }
