@@ -53,6 +53,15 @@ void Rover::steer(int x, int y)
   steer_RM.steer(a);
   steer_RR.steer(a);
 }
+void Rover::breake()
+{
+  well_LF.breake();
+  well_LM.breake();
+  well_LR.breake();
+  well_RF.breake();
+  well_RM.breake();
+  well_RR.breake();
+}
 
 void Rover::move(int speed)
 {

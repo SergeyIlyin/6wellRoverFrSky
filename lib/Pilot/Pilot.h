@@ -12,6 +12,8 @@
 #define CH_Y 0x0
 #define CH_ARM 0x4
 #define CH_REVERSE 0x5
+#define CH_BREAK 0x6
+
 
 struct PilotData
 {
@@ -19,6 +21,7 @@ struct PilotData
     int x;
     int y;
     bool arm;
+    bool handbreak;
 };
 
 class Pilot

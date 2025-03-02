@@ -11,14 +11,14 @@ Rover rover = Rover();
 Pilot pilot = Pilot();
 int kX;
 int dX = 2;
-bool armed=false;
+bool armed = false;
 void setup()
 {
   pilot.begin();
   Serial.begin(100000);
-  Serial.println("Setup START");  
-  
-  rover.begin();  
+  Serial.println("Setup START");
+
+  rover.begin();
   rover.wakeup();
   rover.steer(0, 0);
   rover.move(0);
@@ -26,7 +26,7 @@ void setup()
 }
 
 void loop()
-{ 
+{
   PilotRol();
   delay(100);
 }
@@ -36,22 +36,29 @@ void PilotRol()
   if (pilot.Read())
   {
     PilotData data = pilot.data();
-    if (data.arm!=armed)
+    printPilotData(data);
+    if (data.arm != armed)
     {
-      if (data.arm==false)
+      if (data.arm == false)
       {
-          rover.sleep();
-          armed=false;
+        rover.sleep();
+        armed = false;
       }
-      else if (abs(data.trottle)<5)
+      else if (abs(data.trottle) < 5)
       {
         rover.wakeup();
-          armed=true;
+        armed = true;
       }
     }
-    printPilotData(data);
+    if (data.handbreak == true)
+    {
+      rover.breake();
+    }
+    else
+    {
+      rover.move(data.trottle);
+    }    
     rover.steer(data.x, data.y);
-    rover.move(data.trottle);
     Serial.println("");
   }
   else
@@ -76,20 +83,20 @@ void TestServo()
 
 void TestMotor()
 {
-  int s=0;
-  for (s=0; s<=100; s+=10)
+  int s = 0;
+  for (s = 0; s <= 100; s += 10)
   {
     rover.move(s);
     delay(1000);
   }
 
-  for (s=100; s>=-100; s-=10)
+  for (s = 100; s >= -100; s -= 10)
   {
     rover.move(s);
     delay(1000);
   }
 
-  for (s=-100; s<=0; s+=10)
+  for (s = -100; s <= 0; s += 10)
   {
     rover.move(s);
     delay(1000);

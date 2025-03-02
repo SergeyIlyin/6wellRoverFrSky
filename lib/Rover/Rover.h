@@ -29,6 +29,7 @@ public:
   void begin();
   void sleep();
   void wakeup();
+  void breake();
   void steer(int x, int y);
   void move(int speed);
 

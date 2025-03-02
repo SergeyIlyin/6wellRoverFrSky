@@ -31,6 +31,7 @@ void Pilot::Convert()
     int T = sBusData.ch[CH_TROTTLE];
     int X = sBusData.ch[CH_X];
     int Y = sBusData.ch[CH_Y];
+    int B=sBusData.ch[CH_BREAK];
 
     Serial.print("\tA/T/X/Y/R=");
     Serial.print(arm);
@@ -52,4 +53,5 @@ void Pilot::Convert()
     pilotData.y = map(Y, AXISMIN, AXISMAX, -100, 100);
 
     pilotData.arm= arm >1000;
+    pilotData.handbreak=B>1000;
 }
