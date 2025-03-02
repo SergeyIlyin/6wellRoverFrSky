@@ -55,29 +55,12 @@ void Rover::steer(int x, int y)
 
 void Rover::move(int speed)
 {
-  Serial.print( "\tLF");
   well_LF.rotate(speed);
-  delay(2000);
-
-  Serial.print( "\tLM"); 
   well_LM.rotate(speed);
-  delay(2000);
-  
-  Serial.print( "\tLR"); 
   well_LR.rotate(speed);
-  delay(2000);
-
-  Serial.print( "\tLF"); 
   well_RF.rotate(speed);
-  delay(2000);
-  
-  Serial.print( "\tRM"); 
   well_RM.rotate(speed);
-  delay(2000);
-  
-  Serial.print( "\tRR"); 
   well_RR.rotate(speed);
-  delay(2000);
 }
 WellPosition Rover::CalcWellPosion(int _x, int _y)
 {

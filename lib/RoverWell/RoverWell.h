@@ -5,7 +5,7 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
-#define DRIVEMIN 0
+#define DRIVEMIN 1000
 #define DRIVEMAX 4095
 #define TROTTLEMIN 5
 

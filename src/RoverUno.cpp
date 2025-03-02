@@ -59,25 +59,24 @@ void TestServo()
 
 void TestMotor()
 {
-  
-  delay(100);
+  int s=0;
+  for (s=0; s<=100; s+=10)
+  {
+    rover.move(s);
+    delay(1000);
+  }
 
-  Serial.print("move 0");
-  rover.move(0);
-  Serial.println();
+  for (s=100; s>=-100; s-=10)
+  {
+    rover.move(s);
+    delay(1000);
+  }
 
-  Serial.print("move 50");
-  rover.move(50);
-  Serial.println();
-
-  Serial.print("move 0");
-  rover.move(0);
-  Serial.println();
- 
-  Serial.println(" move -50"); 
-  rover.move(-50);
-  Serial.println();
-  
+  for (s=-100; s<=0; s+=10)
+  {
+    rover.move(s);
+    delay(1000);
+  }
 }
 
 void printPilotData(PilotData data)
