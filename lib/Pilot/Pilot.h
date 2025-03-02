@@ -10,12 +10,15 @@
 #define CH_TROTTLE 0x2
 #define CH_X 0x1
 #define CH_Y 0x0
+#define CH_ARM 0x4
+#define CH_REVERSE 0x5
 
 struct PilotData
 {
     int trottle;
     int x;
     int y;
+    bool arm;
 };
 
 class Pilot

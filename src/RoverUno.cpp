@@ -17,9 +17,10 @@ void setup()
   Serial.begin(100000);
   Serial.println("Setup START");  
   
-  rover.begin();
-  rover.move(0);
+  rover.begin();  
   rover.wakeup();
+  rover.steer(0, 0);
+  rover.move(0);
   Serial.println("Setup COMPLINED");
 }
 
