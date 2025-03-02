@@ -38,8 +38,8 @@ struct RoverWells
 };
 RoverWells rw;
 
-#define SERVOMIN 125
-#define SERVOMAX 625
+#define SERVOMIN 125 // this is the 'minimum' pulse length count (out of 4096)
+#define SERVOMAX 625 // this is the 'maximum' pulse length count (out of 4096)
 struct RoverStears
 {
   int LF = 0x00;
@@ -51,9 +51,9 @@ struct RoverStears
 };
 RoverStears rs;
 
-
-Adafruit_PWMServoDriver pwmServo = Adafruit_PWMServoDriver(0x42);
 Adafruit_PWMServoDriver pwmMotor = Adafruit_PWMServoDriver(0x40);
+Adafruit_PWMServoDriver pwmServo = Adafruit_PWMServoDriver(0x42);
+
 
 void PilotRol();
 void TestServo();
@@ -80,11 +80,11 @@ void setup()
     }
     sbus_rx.Begin();
   }
-
-  pwmServo.setPWMFreq(60);
-  pwmMotor.setPWMFreq(100);
   pwmServo.begin();
   pwmMotor.begin(); 
+  pwmServo.setPWMFreq(60);
+  pwmMotor.setPWMFreq(60);  
+  Move(0);
   Serial.println("Setup COMPLINED");
 }
 
@@ -92,6 +92,8 @@ void loop()
 {
   Serial.println("строка");
   TestMotor();
+  Move(0);
+  TestServo();
   delay(200);
 }
 
@@ -135,16 +137,22 @@ void Move(int trottle)
 
 void TestServo()
 {
-  delay(100);
-  Steer(0);
+  int pin;
+  for (int angle = 0; angle < 181; angle += 5)
+  {
+    {
+      for (pin = 0; pin < 6; pin++)
+      {
+        pwmServo.setPWM(pin, 0, angleToPulse(angle));
+      }
+      delay(100);
+    }
+  }
+  for (pin = 0; pin < 6; pin++)
+  {
+    pwmServo.setPWM(pin, 0, angleToPulse(0));
+  }
   delay(500);
-  Steer(-60);
-  delay(500);
-  Steer(0);
-  delay(500);
-  Steer(60);
-  delay(500);
-  Steer(0);
 }
 
 void TestMotor()
@@ -176,11 +184,11 @@ void Steer(int x)
   // Serial.print(strBuf);
 
   steer(rs.LF,x);
-  steer(rs.LM,x);
-  steer(rs.LR,x);
-  steer(rs.RF,x);
-  steer(rs.RM,x);
-  steer(rs.RR,x);
+  //steer(rs.LM,x);
+  //steer(rs.LR,x);
+  //steer(rs.RF,x);
+  //steer(rs.RM,x);
+  //steer(rs.RR,x);
 };
 
 void steer(int pin, int angle)
@@ -189,11 +197,15 @@ void steer(int pin, int angle)
   pwmServo.setPWM(pin, 0, pulse);
 }
 
-int angleToPulse(int ang)
+int angleToPulse(int ang) // gets angle in degree and returns the pulse width
 {
   int pulse = map(ang, 0, 180, SERVOMIN, SERVOMAX); // map angle of 0 to 180 to Servo min and Servo max
+  Serial.print("Angle: ");
+  Serial.print(ang);
+  Serial.print(" pulse: ");
+  Serial.println(pulse);
   return pulse;
-};
+}
 
 
 void RotateWell(int pin1, int pin2, int trottle)
