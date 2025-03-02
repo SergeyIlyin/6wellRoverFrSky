@@ -17,15 +17,24 @@ void setup()
   Serial.println("Setup START");  
   //pilot.begin();
   rover.begin();
-  //rover.wakeup();
+  rover.move(0);
+  rover.wakeup();
   Serial.println("Setup COMPLINED");
 }
 
 void loop()
 { 
+ // PilotRol();
   Serial.println("строка");
-  TestMotor();  
-  delay(200);
+  rover.move(0);
+  TestServo(); 
+  rover.move(50);
+  TestServo(); 
+  rover.move(0);
+  delay(500);
+  rover.move(-50);
+  TestServo(); 
+  delay(100);
 }
 
 void PilotRol()
@@ -39,7 +48,7 @@ void PilotRol()
   }
   else
   {
-    // Serial.println("NO PILOT!");
+    Serial.println("NO PILOT!");
     delay(10);
   }
 }

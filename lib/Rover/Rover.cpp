@@ -6,10 +6,10 @@ Rover::Rover()
 
 void Rover::begin()
 {
-  pwmServo.setPWMFreq(60);
-  pwmMotor.setPWMFreq(100);
   pwmServo.begin();
   pwmMotor.begin();
+  pwmServo.setPWMFreq(60);
+  pwmMotor.setPWMFreq(100);
   steer_LF.begin();
   steer_LM.begin();
   steer_LR.begin();
@@ -44,13 +44,13 @@ void Rover::steer(int x, int y)
   // char strBuf[50];
   // sprintf(strBuf, "x/y=%d/%d W=%d.%02d | %d.%02d  | %d.%02d  | %d.%02d  | %d.%02d | %d.%02d  ", x, y, p.LF, abs(p.LF * 100), p.LM, abs(p.LM * 100), p.LR, abs(p.LR * 100), p.RF, abs(p.RF * 100), p.RM, abs(p.RM * 100), p.RR, abs(p.RR * 100));
   // Serial.print(strBuf);
-
-  steer_LF.steer(x);
-  steer_LM.steer(x);
-  steer_LR.steer(x);
-  steer_RF.steer(x);
-  steer_RM.steer(x);
-  steer_RR.steer(x);
+  int a = map(x, -100, 100, -90, 90);
+  steer_LF.steer(a);
+  steer_LM.steer(a);
+  steer_LR.steer(a);
+  steer_RF.steer(a);
+  steer_RM.steer(a);
+  steer_RR.steer(a);
 }
 
 void Rover::move(int speed)
