@@ -26,12 +26,20 @@ bool Pilot::Read()
 void Pilot::Convert()
 {
     pilotData = PilotData();
-    
+    int T=sBusData.ch[CH_TROTTLE];
+    int X=sBusData.ch[CH_X];
+    int Y=sBusData.ch[CH_Y];
+    Serial.print("\tT/X/Y=");
+    Serial.print(T);
+    Serial.print("/");
+    Serial.print(X);
+    Serial.print("/");
+    Serial.print(Y);
     // TROTTLE
-    pilotData.trottle = map(sBusData.ch[CH_TROTTLE], AXISMIN, AXISMAX, 0, 100);
+    pilotData.trottle = map(T, AXISMIN, AXISMAX, 0, 100);
 
     // ROLL
-    pilotData.x = map(sBusData.ch[CH_X], AXISMIN, AXISMAX, -100, 100);
+    pilotData.x = map(X, AXISMIN, AXISMAX, -100, 100);
 
-    pilotData.y  = map(sBusData.ch[CH_Y], AXISMIN, AXISMAX, -100, 100);
+    pilotData.y  = map(Y, AXISMIN, AXISMAX, -100, 100);
 }

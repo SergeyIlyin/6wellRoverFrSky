@@ -7,9 +7,9 @@
 #define AXISMIN 172
 #define AXISMAX 1811
 
-#define CH_TROTTLE 0x0
+#define CH_TROTTLE 0x2
 #define CH_X 0x1
-#define CH_Y 0x2
+#define CH_Y 0x0
 
 struct PilotData
 {

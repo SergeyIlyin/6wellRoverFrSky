@@ -13,9 +13,10 @@ int kX;
 int dX = 2;
 void setup()
 {
+  pilot.begin();
   Serial.begin(100000);
   Serial.println("Setup START");  
-  //pilot.begin();
+  
   rover.begin();
   rover.move(0);
   rover.wakeup();
@@ -24,16 +25,7 @@ void setup()
 
 void loop()
 { 
- // PilotRol();
-  Serial.println("строка");
-  rover.move(0);
-  TestServo(); 
-  rover.move(50);
-  TestServo(); 
-  rover.move(0);
-  delay(500);
-  rover.move(-50);
-  TestServo(); 
+  PilotRol();
   delay(100);
 }
 
@@ -45,6 +37,8 @@ void PilotRol()
     printPilotData(data);
     rover.steer(data.x, data.y);
     rover.move(data.trottle);
+    Serial.println("");
+    delay(50);
   }
   else
   {
