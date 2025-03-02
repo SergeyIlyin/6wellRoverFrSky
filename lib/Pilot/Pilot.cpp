@@ -50,4 +50,6 @@ void Pilot::Convert()
     pilotData.x = map(X, AXISMIN, AXISMAX, -100, 100);
 
     pilotData.y = map(Y, AXISMIN, AXISMAX, -100, 100);
+
+    pilotData.arm= arm >1000;
 }

@@ -11,6 +11,7 @@ Rover rover = Rover();
 Pilot pilot = Pilot();
 int kX;
 int dX = 2;
+bool armed=false;
 void setup()
 {
   pilot.begin();
@@ -35,11 +36,23 @@ void PilotRol()
   if (pilot.Read())
   {
     PilotData data = pilot.data();
+    if (data.arm!=armed)
+    {
+      if (data.arm==false)
+      {
+          rover.sleep();
+          armed=false;
+      }
+      else if (abs(data.trottle)<5)
+      {
+        rover.wakeup();
+          armed=true;
+      }
+    }
     printPilotData(data);
     rover.steer(data.x, data.y);
     rover.move(data.trottle);
     Serial.println("");
-    delay(50);
   }
   else
   {

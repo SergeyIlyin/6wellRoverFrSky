@@ -51,7 +51,6 @@ private:
 
   WellPosition CalcWellPosion(int _x, int _y);
   double wellAngle(double well_x, double well_y, double r_x, double r_y);
-  
 };
 
 #endif
