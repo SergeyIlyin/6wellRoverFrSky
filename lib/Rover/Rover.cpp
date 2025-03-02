@@ -6,16 +6,22 @@ Rover::Rover()
 
 void Rover::begin()
 {
+  pwmServo.setPWMFreq(60);
+  pwmMotor.setPWMFreq(100);
   pwmServo.begin();
   pwmMotor.begin();
-  pwmServo.setPWMFreq(100);
-  pwmMotor.setPWMFreq(100);
   steer_LF.begin();
   steer_LM.begin();
   steer_LR.begin();
   steer_RF.begin();
   steer_RM.begin();
   steer_RR.begin();
+  well_LF.begin();
+  well_LM.begin();
+  well_LR.begin();
+  well_RF.begin();
+  well_RM.begin();
+  well_RR.begin();
 }
 
 void Rover::sleep()
@@ -34,30 +40,44 @@ void Rover::wakeup()
 
 void Rover::steer(int x, int y)
 {
-  Serial.print("inX=");
-  Serial.print(x);
-
-  WellPosition p = CalcWellPosion(x, y);
+  //WellPosition p = CalcWellPosion(x, y);
   // char strBuf[50];
   // sprintf(strBuf, "x/y=%d/%d W=%d.%02d | %d.%02d  | %d.%02d  | %d.%02d  | %d.%02d | %d.%02d  ", x, y, p.LF, abs(p.LF * 100), p.LM, abs(p.LM * 100), p.LR, abs(p.LR * 100), p.RF, abs(p.RF * 100), p.RM, abs(p.RM * 100), p.RR, abs(p.RR * 100));
   // Serial.print(strBuf);
 
-  steer_LF.steer(p.LF);
-  steer_LM.steer(p.LM);
-  steer_LR.steer(p.LR);
-  steer_RF.steer(p.RF);
-  steer_RM.steer(p.RM);
-  steer_RR.steer(p.RR);
+  steer_LF.steer(x);
+  steer_LM.steer(x);
+  steer_LR.steer(x);
+  steer_RF.steer(x);
+  steer_RM.steer(x);
+  steer_RR.steer(x);
 }
 
 void Rover::move(int speed)
 {
+  Serial.print( "\tLF");
   well_LF.rotate(speed);
+  delay(2000);
+
+  Serial.print( "\tLM"); 
   well_LM.rotate(speed);
+  delay(2000);
+  
+  Serial.print( "\tLR"); 
   well_LR.rotate(speed);
+  delay(2000);
+
+  Serial.print( "\tLF"); 
   well_RF.rotate(speed);
+  delay(2000);
+  
+  Serial.print( "\tRM"); 
   well_RM.rotate(speed);
+  delay(2000);
+  
+  Serial.print( "\tRR"); 
   well_RR.rotate(speed);
+  delay(2000);
 }
 WellPosition Rover::CalcWellPosion(int _x, int _y)
 {
@@ -77,8 +97,13 @@ WellPosition Rover::CalcWellPosion(int _x, int _y)
   // вычисляем радиус поворота
   if (abs(a_grad - 90) > 1)
   {
+
     double tng = tan(a_rad);
     double r = tng * ROVER_LENGTH;
+    if (abs(r) - ROVER_WIDTH / 2 < 0)
+    {
+      r = ROVER_WIDTH / 2 * (r / sqrt(r * r));
+    }
     Serial.print(" r=");
     Serial.print(r);
 

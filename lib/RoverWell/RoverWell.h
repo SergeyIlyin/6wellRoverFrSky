@@ -6,7 +6,7 @@
 #include <Adafruit_PWMServoDriver.h>
 
 #define DRIVEMIN 0
-#define DRIVEMAX 4096
+#define DRIVEMAX 4095
 #define TROTTLEMIN 5
 
 class RoverWell {

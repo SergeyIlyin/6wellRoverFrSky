@@ -14,29 +14,17 @@ int dX = 2;
 void setup()
 {
   Serial.begin(100000);
-  pilot.begin();
+  Serial.println("Setup START");  
+  //pilot.begin();
   rover.begin();
-  rover.wakeup();
+  //rover.wakeup();
   Serial.println("Setup COMPLINED");
 }
 
 void loop()
-{
-  // PilotRol();
-  //TestServo();
-  // TestMotor();
-
-  kX += dX;
-  if (kX >= 100)
-  {
-    dX = -2;
-  }
-  if (kX <= -100)
-  {
-    dX = 2;
-  }
-  rover.steer(kX, 0);
-  Serial.println("");
+{ 
+  Serial.println("строка");
+  TestMotor();  
   delay(200);
 }
 
@@ -57,25 +45,39 @@ void PilotRol()
 }
 void TestServo()
 {
-
   delay(100);
-  rover.steer(50, 20);
-  Serial.println("");
+  rover.steer(0, 20);
+  delay(500);
+  rover.steer(-60, 20);
   delay(500);
   rover.steer(0, 20);
-  Serial.println("");
   delay(500);
-  rover.steer(-50, 20);
-  Serial.println("");
+  rover.steer(60, 20);
   delay(500);
+  rover.steer(0, 20);
 }
 
 void TestMotor()
 {
+  
   delay(100);
+
+  Serial.print("move 0");
+  rover.move(0);
+  Serial.println();
+
+  Serial.print("move 50");
   rover.move(50);
-  delay(100);
-  rover.move(100);
+  Serial.println();
+
+  Serial.print("move 0");
+  rover.move(0);
+  Serial.println();
+ 
+  Serial.println(" move -50"); 
+  rover.move(-50);
+  Serial.println();
+  
 }
 
 void printPilotData(PilotData data)

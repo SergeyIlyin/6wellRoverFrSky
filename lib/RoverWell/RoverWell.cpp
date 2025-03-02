@@ -13,7 +13,7 @@ void RoverWell::begin()
 
 void RoverWell::rotate(int trottle)
 {
-  if (trottle = 0 || abs(trottle) < TROTTLEMIN)
+  if (trottle == 0 || (abs(trottle) < TROTTLEMIN))
   {
     release();
   }
@@ -25,7 +25,8 @@ void RoverWell::rotate(int trottle)
   }
   else
   {
-    int pulse = trottleToPulse(trottle);
+
+    int pulse = trottleToPulse(trottle * -1);
     pwm->setPWM(pin1, DRIVEMIN, DRIVEMIN);
     pwm->setPWM(pin2, DRIVEMIN, pulse);
   }
