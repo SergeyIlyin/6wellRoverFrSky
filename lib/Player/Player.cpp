@@ -3,22 +3,36 @@
 Player::Player()
 {
 }
+void Player::LostSignal()
+{
+    Serial.print("\tPlay LostSignal");
+    int melody[] = {NOTE_C6, 8, NOTE_C6, 8};
+    playMusic(100, sizeof(melody), melody);
+}
+
+void Player::PowerOn()
+{
+    Serial.print("\tPlay PowerOn");
+    int melody[] = {NOTE_C4, 4, NOTE_C5, 4};
+    playMusic(120, sizeof(melody), melody);
+}
 
 void Player::PlayDisam()
 {
-    int melody[] = {NOTE_C5, 4, NOTE_A4, 4, NOTE_A4, 4, REST, 4};
+    Serial.print("\tPlay Disarm");
+    int melody[] = {NOTE_A4, 8, NOTE_E4, 8};
     playMusic(144, sizeof(melody), melody);
 }
 
 void Player::PlayArm()
 {
-    int melody[] = {NOTE_E5, 4, NOTE_B4, 8, NOTE_C5, 8, NOTE_D5, 4, NOTE_C5, 8, NOTE_B4, 8};
+    Serial.print("\tPlay Arm");
+    int melody[] = {NOTE_E4, 8, NOTE_A4, 8};
     playMusic(144, sizeof(melody), melody);
 }
 
 void Player::playMusic(int tempo, int size, int melody[])
 {
-    Serial.print("Play Music");
     int notes = size / sizeof(melody[0]) / 2;
     int wholenote = (60000 * 4) / tempo;
     int divider = 0, noteDuration = 0;
@@ -50,5 +64,4 @@ void Player::playMusic(int tempo, int size, int melody[])
         // stop the waveform generation before the next note.
         noTone(pin);
     }
-    Serial.print(" END Music");
 }

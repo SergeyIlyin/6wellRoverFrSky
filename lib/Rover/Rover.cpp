@@ -12,7 +12,19 @@ void Rover::begin()
   pwmMotor.setPWMFreq(100);
   move(0);
 }
-
+void Rover::lostSingal()
+{
+  lostSignalCount++;
+  if (armed)
+  {
+    player.LostSignal();
+  }
+  if (lostSignalCount > maxLostSignal)
+  {
+    sleep();
+    lostSignalCount = 0;
+  }
+}
 void Rover::sleep()
 {
   pwmServo.sleep();
@@ -23,7 +35,6 @@ void Rover::sleep()
     Serial.print(" CALL MUSIC ");
     player.PlayDisam();
   }
-  
 }
 
 void Rover::wakeup()

@@ -10,16 +10,18 @@ void TestMotor();
 void printPilotData(PilotData data);
 Rover rover = Rover();
 Pilot pilot = Pilot();
+Player player = Player();
 int kX;
 int dX = 2;
 void setup()
 {
   Serial.begin(100000);
   pilot.begin();
-  Serial.println("Setup START");
+  Serial.println("\tSetup START");
   rover.begin();
-  rover.wakeup();
-  Serial.println("Setup COMPLINED");
+  rover.sleep();
+  player.PowerOn();
+  Serial.println("\tSetup COMPLINED");
 }
 
 void loop()
@@ -32,7 +34,7 @@ void PilotRol()
   if (pilot.Read())
   {
     PilotData data = pilot.data();
-    printPilotData(data);
+    //printPilotData(data);
 
     if (data.arm == false)
     {
@@ -57,8 +59,8 @@ void PilotRol()
   else
   {
     Serial.println("NO PILOT!");
-    rover.sleep();
-    delay(500);
+    rover.lostSingal();
+    delay(100);
   }
 }
 void TestServo()

@@ -100,8 +100,11 @@ public:
   Player();
   void PlayArm();
   void PlayDisam();
-  void playMusic(int tempo, int size, int melody[]);
+  void PowerOn();
+  void LostSignal();
+
 private:
+  void playMusic(int tempo, int size, int melody[]);
   int pin = 11;
 };
 
