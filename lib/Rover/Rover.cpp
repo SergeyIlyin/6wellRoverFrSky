@@ -10,41 +10,41 @@ void Rover::begin()
   pwmMotor.begin();
   pwmServo.setPWMFreq(60);
   pwmMotor.setPWMFreq(100);
-  steer_LF.begin();
-  steer_LM.begin();
-  steer_LR.begin();
-  steer_RF.begin();
-  steer_RM.begin();
-  steer_RR.begin();
-  well_LF.begin();
-  well_LM.begin();
-  well_LR.begin();
-  well_RF.begin();
-  well_RM.begin();
-  well_RR.begin();
+  move(0);
 }
 
 void Rover::sleep()
 {
- 
   pwmServo.sleep();
   pwmMotor.sleep();
-  delay(500);
+  if (armed)
+  {
+    armed = false;
+    Serial.print(" CALL MUSIC ");
+    player.PlayDisam();
+  }
+  
 }
 
 void Rover::wakeup()
 {
-  pwmServo.wakeup();
-  pwmMotor.wakeup();
-  delay(500);
+  if (!armed)
+  {
+    pwmServo.wakeup();
+    pwmMotor.wakeup();
+    armed = true;
+    Serial.print(" CALL MUSIC ");
+    player.PlayArm();
+    delay(500);
+  }
 }
 
 void Rover::steer(int x, int y)
 {
-  //WellPosition p = CalcWellPosion(x, y);
-  // char strBuf[50];
-  // sprintf(strBuf, "x/y=%d/%d W=%d.%02d | %d.%02d  | %d.%02d  | %d.%02d  | %d.%02d | %d.%02d  ", x, y, p.LF, abs(p.LF * 100), p.LM, abs(p.LM * 100), p.LR, abs(p.LR * 100), p.RF, abs(p.RF * 100), p.RM, abs(p.RM * 100), p.RR, abs(p.RR * 100));
-  // Serial.print(strBuf);
+  // WellPosition p = CalcWellPosion(x, y);
+  //  char strBuf[50];
+  //  sprintf(strBuf, "x/y=%d/%d W=%d.%02d | %d.%02d  | %d.%02d  | %d.%02d  | %d.%02d | %d.%02d  ", x, y, p.LF, abs(p.LF * 100), p.LM, abs(p.LM * 100), p.LR, abs(p.LR * 100), p.RF, abs(p.RF * 100), p.RM, abs(p.RM * 100), p.RR, abs(p.RR * 100));
+  //  Serial.print(strBuf);
   int a = map(x, -100, 100, -90, 90);
   steer_LF.steer(a);
   steer_LM.steer(a);

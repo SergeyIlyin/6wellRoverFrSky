@@ -7,9 +7,7 @@ RoverWell::RoverWell(Adafruit_PWMServoDriver *pwm, int pin1, int pin2)
   this->pin2 = pin2;
 }
 
-void RoverWell::begin()
-{
-}
+
 
 void RoverWell::rotate(int trottle)
 {

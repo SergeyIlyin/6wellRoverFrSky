@@ -5,14 +5,13 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
-#define DRIVEMIN 1000
+#define DRIVEMIN 500
 #define DRIVEMAX 4095
 #define TROTTLEMIN 5
 
 class RoverWell {
   public:
     RoverWell(Adafruit_PWMServoDriver* pwm, int pin1, int pin2);
-    void begin();
     void rotate(int speed);
     void breake();
     void release();

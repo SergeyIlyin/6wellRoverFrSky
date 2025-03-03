@@ -11,7 +11,6 @@
 class RoverSteer {
   public:
     RoverSteer(Adafruit_PWMServoDriver* pwm, int pin);
-    void begin();
     void steer(int angle);
   private:
     Adafruit_PWMServoDriver* pwm;

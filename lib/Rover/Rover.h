@@ -5,6 +5,7 @@
 #include <Adafruit_PWMServoDriver.h>
 #include <RoverSteer.h>
 #include <RoverWell.h>
+#include <Player.h>
 
 #define ROVER_WIDTH 240
 #define ROVER_LENGTH 320
@@ -49,9 +50,10 @@ private:
   RoverWell well_RF = RoverWell(&pwmMotor, 0x04, 0x05);
   RoverWell well_RM = RoverWell(&pwmMotor, 0x0A, 0x0B);
   RoverWell well_RR = RoverWell(&pwmMotor, 0x01, 0x00);
-
+  Player player=Player();
   WellPosition CalcWellPosion(int _x, int _y);
   double wellAngle(double well_x, double well_y, double r_x, double r_y);
+  bool armed=false;
 };
 
 #endif

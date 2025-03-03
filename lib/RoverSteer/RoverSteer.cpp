@@ -6,10 +6,6 @@ RoverSteer::RoverSteer(Adafruit_PWMServoDriver *pwm, int pin)
   this->pin = pin;
 }
 
-void RoverSteer::begin()
-{
-}
-
 void RoverSteer::steer(int angle)
 {
   int pulse = angleToPulse(angle + 90);

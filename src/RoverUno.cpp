@@ -2,6 +2,7 @@
 #include <sbus.h>
 #include <Rover.h>
 #include <Pilot.h>
+#include <Player.h>
 
 void PilotRol();
 void TestServo();
@@ -11,24 +12,19 @@ Rover rover = Rover();
 Pilot pilot = Pilot();
 int kX;
 int dX = 2;
-bool armed = false;
 void setup()
 {
-  pilot.begin();
   Serial.begin(100000);
+  pilot.begin();
   Serial.println("Setup START");
-
   rover.begin();
   rover.wakeup();
-  rover.steer(0, 0);
-  rover.move(0);
   Serial.println("Setup COMPLINED");
 }
 
 void loop()
 {
   PilotRol();
-  delay(100);
 }
 
 void PilotRol()
@@ -37,19 +33,16 @@ void PilotRol()
   {
     PilotData data = pilot.data();
     printPilotData(data);
-    if (data.arm != armed)
+
+    if (data.arm == false)
     {
-      if (data.arm == false)
-      {
-        rover.sleep();
-        armed = false;
-      }
-      else if (abs(data.trottle) < 5)
-      {
-        rover.wakeup();
-        armed = true;
-      }
+      rover.sleep();
     }
+    else if (abs(data.trottle) < 5)
+    {
+      rover.wakeup();
+    }
+
     if (data.handbreak == true)
     {
       rover.breake();
@@ -57,14 +50,15 @@ void PilotRol()
     else
     {
       rover.move(data.trottle);
-    }    
+    }
     rover.steer(data.x, data.y);
     Serial.println("");
   }
   else
   {
     Serial.println("NO PILOT!");
-    delay(10);
+    rover.sleep();
+    delay(500);
   }
 }
 void TestServo()
