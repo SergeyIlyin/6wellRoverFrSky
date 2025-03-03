@@ -12,16 +12,23 @@ void Rover::begin()
   pwmMotor.setPWMFreq(100);
   move(0);
 }
-void Rover::lostSingal()
+void Rover::lostSingal(bool lost)
 {
-  lostSignalCount++;
-  if (armed)
+  if (lost)
   {
-    player.LostSignal();
+    lostSignalCount++;
+    if (armed)
+    {
+      player.LostSignal();
+    }
+    if (lostSignalCount > maxLostSignal)
+    {
+      sleep();
+      lostSignalCount = 0;
+    }
   }
-  if (lostSignalCount > maxLostSignal)
+  else
   {
-    sleep();
     lostSignalCount = 0;
   }
 }
@@ -32,7 +39,6 @@ void Rover::sleep()
   if (armed)
   {
     armed = false;
-    Serial.print(" CALL MUSIC ");
     player.PlayDisam();
   }
 }
@@ -44,7 +50,6 @@ void Rover::wakeup()
     pwmServo.wakeup();
     pwmMotor.wakeup();
     armed = true;
-    Serial.print(" CALL MUSIC ");
     player.PlayArm();
     delay(500);
   }

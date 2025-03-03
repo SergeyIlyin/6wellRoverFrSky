@@ -30,7 +30,7 @@ public:
   void sleep();
   void wakeup();
   void breake();
-  void lostSingal();
+  void lostSingal(bool lost);
   void steer(int x, int y);
   void move(int speed);
 
