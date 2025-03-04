@@ -9,7 +9,7 @@
 
 #define ROVER_WIDTH 240
 #define ROVER_LENGTH 320
-#define MAX_RADIUS 10000
+#define MAX_RADIUS 1000
 #define MIN_RADIUS 300
 
 struct WellPosition
@@ -52,7 +52,8 @@ private:
   RoverWell well_RR = RoverWell(&pwmMotor, 0x01, 0x00);
   Player player = Player();
   WellPosition CalcWellPosion(int _x, int _y);
-  double wellAngle(double well_x, double well_y, double r_x, double r_y);
+  double CalcAngle(double x, double y);
+  void printWellPosition(WellPosition p);
   bool armed = false;
   int lostSignalCount = 0;
   int maxLostSignal = 5;

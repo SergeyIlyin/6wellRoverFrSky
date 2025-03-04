@@ -34,8 +34,8 @@ void PilotRol()
   if (pilot.Read())
   {
     PilotData data = pilot.data();
+    printPilotData(data);
     rover.lostSingal(false);
-    //printPilotData(data);
 
     if (data.arm == false)
     {
@@ -54,6 +54,7 @@ void PilotRol()
     {
       rover.move(data.trottle);
     }
+   
     rover.steer(data.x, data.y);
     Serial.println("");
     delay(10);
@@ -109,5 +110,4 @@ void printPilotData(PilotData data)
   Serial.print(data.x);
   Serial.print("/");
   Serial.print(data.y);
-  Serial.print("\t");
 }
