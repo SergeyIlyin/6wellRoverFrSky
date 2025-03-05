@@ -109,22 +109,27 @@ WellPosition Rover::CalcWellPosion(int _x, int _y)
   if (_x == 0)
     return p;
 
-  int x = 0;
+  double posX = _x / abs(_x);
 
-  double maxDX=ROVER_LENGTH / 2/.017455;
-  double minDX=ROVER_WIDTH / 2;
-  if (_x > 0)
-    x = map(_x, 0, 100, maxDX, minDX );
+  double maxX = ROVER_WIDTH / 2 / .017455;
+  double minX = (ROVER_WIDTH / 2 + 1);
+  double minY = -ROVER_LENGTH * 2;
+  double maxY = ROVER_LENGTH * 2;
 
-  if (_x < 0)
-    x = map(_x, -100, 0, -maxDX, -minDX);
+  int angle = map(abs(_x), 0, 100, 0, 90);
+  double KX = sin(angle * PI / 180);
+  double x = ((1 - KX) * maxX + minX) * posX;
 
-  double y = map(_y, -100, 100, -MAX_RADIUS, MAX_RADIUS);
+  double y = map(_y, -100, 100, minY, maxY);
 
-  Serial.print("\tX/Y=");
+  Serial.print("\tKX/X/Y=");
+
+  Serial.print(KX);
+  Serial.print("/");
   Serial.print(x);
   Serial.print("/");
   Serial.print(y);
+
   double dx = ROVER_WIDTH / 2;
   double dy = ROVER_LENGTH / 2;
 

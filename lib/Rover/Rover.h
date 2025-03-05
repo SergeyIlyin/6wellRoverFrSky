@@ -9,8 +9,6 @@
 
 #define ROVER_WIDTH 240
 #define ROVER_LENGTH 320
-#define MAX_RADIUS 1000
-#define MIN_RADIUS 300
 
 struct WellPosition
 {
