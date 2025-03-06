@@ -113,12 +113,13 @@ WellPosition Rover::CalcWellPosion(int _x, int _y)
 
   double maxX = ROVER_WIDTH / 2 / .017455;
   double minX = (ROVER_WIDTH / 2 + 1);
+  double DX=maxX -minX;
   double minY = -ROVER_LENGTH * 2;
   double maxY = ROVER_LENGTH * 2;
 
   int angle = map(abs(_x), 0, 100, 0, 90);
   double KX = sin(angle * PI / 180);
-  double x = ((1 - KX) * maxX + minX) * posX;
+  double x = (maxX -  DX*KX   + minX) * posX;
 
   double y = map(_y, -100, 100, minY, maxY);
 
